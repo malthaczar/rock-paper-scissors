@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rock Paper Scissors</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<button>Start Game</button>
+	
+	<script>
+		let button = document.querySelector('button');
+		button.onclick = function game() {
+			let playerWins = 0, 
+				playerLosses = 0,
+				playerTies = 0;
+
+			function computerPlay(){
+				move = ["rock", "paper", "scissors"];
+				console.log(move)
+				return move[Math.floor(Math.random() * 3)];
+			}
+
+			function playRound() {
+				let playerSelection = prompt('rock, paper, or scissors?').toLowerCase();
+				let computerSelection = computerPlay();
+				console.log('computer played: ' + computerSelection);
+				console.log('You played: ' + playerSelection);
+				
+				function roundWon() {
+					console.log('You win this round!')
+					return ++playerWins;
+				}
+				function roundLost() {
+					console.log('You lost this round!')
+					return ++playerLosses;
+				}
+				function roundTied() {
+					console.log('You tied this round!')
+					return ++playerTies;
+				}
+
+				switch (playerSelection) {
+					case ('rock'):
+						if (computerSelection === 'rock') {
+							roundTied();
+						}
+						if (computerSelection === 'paper') {
+							roundLost();
+						}
+						if (computerSelection === 'scissors') {
+							roundWon();
+						}
+						break;
+					case ('paper'):
+						if (computerSelection === 'rock') {
+							roundWon();
+						}
+						if (computerSelection === 'paper') {
+							roundTied();
+						}
+						if (computerSelection === 'scissors') {
+							roundLost();
+						}
+						break;
+					case ('scissors'):
+						if (computerSelection === 'rock') {
+							roundLost();
+						}
+						if (computerSelection === 'paper') {
+							roundWon();
+						}
+						if (computerSelection === 'scissors') {
+							roundTied();
+						}
+						break;
+				}
+
+			}
+
+			function rounds(x) {
+				for (let i=0; i < x; i++){
+					playRound();
+				}
+			}
+
+			function checkScore() {
+				console.log('Your Score: ' + playerWins + "  |  Computer's Score: " + playerLosses + 
+					'  |  Ties: ' + playerTies);
+			}
+			
+			rounds(3); /* controls number of rounds played */
+			checkScore(); /* Has to be after rounds, to show final scoreboard */
+			
+		}
+
+	</script>
+</body>
+</html>
